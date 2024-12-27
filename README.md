@@ -1,5 +1,5 @@
 STEP 1:
-  pull the repo
+  clone the repo
 
 
 STEP 2:
