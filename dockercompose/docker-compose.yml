@@ -1,0 +1,35 @@
+version: "3"
+services:
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - my-network
+  node:
+    image: manumadhu123/backend:latest
+    ports:
+      - 3000:3000
+    environment:
+      PORT: 3000
+      DB_URI: mongodb://mongo_db:27017 
+      DB_NAME: docker
+    depends_on: 
+      - mongo_db
+    networks:
+      - my-network
+  react:
+    image: manumadhu123/frontend:latest 
+    ports:
+      - 3001:3000
+    environment:
+      PORT: 3000
+    networks:
+      - my-network
+volumes:
+  mongo_data: {}
+networks:
+  my-network:
+    driver: bridge
